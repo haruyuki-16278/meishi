@@ -129,18 +129,80 @@ console.log(japaneseMeishiSize);
 
 const omote = pdfDoc.addPage(japaneseMeishiSize);
 const { width, height } = omote.getSize();
-drawText(omote, 'Haruyuki', 24, {
-  x: width / 2,
-  y: height / 2 + 10,
+omote.drawRectangle({
+  x: 0,
+  y: 0,
+  width: width,
+  height: height,
+  color: rgb(0.9725, 0.9725, 1)
+});
+drawText(omote, 'はるゆき', 24, {
+  x: width * 0.35,
+  y: height * 0.9,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'top'
+});
+drawText(omote, 'X:@haruyuki_16278', 10, {
+  x: width* 0.35,
+  y: height * 0.6,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'top'
+});
+drawText(omote, 'mail:haruyuki@relicsnow.info', 10, {
+  x: width* 0.35,
+  y: height * 0.6 - 12,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'top'
+});
+omote.drawRectangle({
+  x: width - 10 - 10,
+  y: 10,
+  width: 10,
+  height: 10,
+  color: rgb(0xC8 / 256, 0x3C / 256, 0x35 / 256)
+});
+omote.drawRectangle({
+  x: width -10 - 5- 10 - 10,
+  y: 10,
+  width: 10,
+  height: 10,
+  color: rgb(0xB4 / 256, 0xE9 / 256, 0xFF / 256)
+});
+omote.drawRectangle({
+  x: width -10 -5 -10 - 5- 10 - 10,
+  y: 10,
+  width: 10,
+  height: 10,
+  color: rgb(0xFF / 256, 0xB8 / 256, 0x00 / 256)
+});
+await drawPicture(omote, 'icon.jpg', 0.15, {
+  x: width * 0.1 - 5,
+  y: height * 0.6,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'center'
+});
+await drawPicture(omote, 'QR.png', 0.03, {
+  x: width * 0.1 - 5,
+  y: 20,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'bottom'
+});
+await drawPicture(omote, 'websiteplanet-qr.png', 0.03, {
+  x: width * 0.1 - 5 + width * 0.15 + 5,
+  y: 19,
+  horizontalPlacement: 'left',
+  verticalPlacement: 'bottom'
+});
+
+const ura = pdfDoc.addPage(japaneseMeishiSize);
+const uraSize = omote.getSize();
+
+await drawPicture(ura, 'icon.png', 0.1, {
+  x: uraSize.width / 2,
+  y: uraSize.height / 2,
   horizontalPlacement: 'center',
   verticalPlacement: 'center'
 });
-await drawPicture(omote, 'icon.jpg', 0.1, {
-  x: width * 0.1,
-  y: height / 2,
-  horizontalPlacement: 'left',
-  verticalPlacement: 'center'
-})
 
 const pdfBytes = await pdfDoc.save();
 await Deno.writeFile('meishi.pdf', pdfBytes);
