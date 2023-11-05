@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
-import { PDFDocument, rgb, PageSizes, StandardFonts } from 'https://cdn.skypack.dev/pdf-lib@%5E1.7.0';
+import { PDFDocument, rgb, PageSizes, StandardFonts, degrees } from 'https://cdn.skypack.dev/pdf-lib@%5E1.7.0';
 import pdfLibfontkit from 'https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit@1.1.1/+esm';
 
 /** 編集の基本になるPDFデータ */
@@ -197,7 +197,31 @@ await drawPicture(omote, 'websiteplanet-qr.png', 0.03, {
 const ura = pdfDoc.addPage(japaneseMeishiSize);
 const uraSize = omote.getSize();
 
-await drawPicture(ura, 'icon.png', 0.1, {
+ura.drawRectangle({
+  x: 0 - 27 - 28,
+  y: 0,
+  width: width / 3 + 27,
+  height: height,
+  ySkew: degrees(20),
+  color: rgb(0xFF / 256, 0xB8 / 256, 0x00 / 256)
+});
+ura.drawRectangle({
+  x: width / 3 - 27 - 18,
+  y: 0,
+  width: width / 3 + 36,
+  height: height,
+  ySkew: degrees(20),
+  color: rgb(0xB4 / 256, 0xE9 / 256, 0xFF / 256)
+});
+ura.drawRectangle({
+  x: width * 2 / 3 - 27 + 18,
+  y: 0,
+  width: width / 3 + 27,
+  height: height,
+  ySkew: degrees(20),
+  color: rgb(0xC8 / 256, 0x3C / 256, 0x35 / 256)
+});
+await drawPicture(ura, 'icon.png', 0.2, {
   x: uraSize.width / 2,
   y: uraSize.height / 2,
   horizontalPlacement: 'center',
